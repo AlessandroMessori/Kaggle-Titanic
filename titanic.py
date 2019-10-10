@@ -1,13 +1,15 @@
-import numpy as np
 import pandas as pd
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier, BaggingClassifier, \
     ExtraTreesClassifier
 from sklearn.naive_bayes import GaussianNB
 from sklearn.linear_model import LogisticRegression
 from src.data_cleaning import DataCleaner
 from src.data_formatter import save_preds_tocsv
+from src.ann import NetClassifier
+
+ann = NetClassifier()
+ann.build()
 
 classifiers = [
     RandomForestClassifier(),
@@ -16,7 +18,9 @@ classifiers = [
     BaggingClassifier(),
     ExtraTreesClassifier(),
     GaussianNB(),
-    LogisticRegression()
+    LogisticRegression(),
+    KNeighborsClassifier(),
+    ann
 ]
 
 X_train = pd.read_csv("data/train.csv")
@@ -38,6 +42,6 @@ test_cleaner.fill("Cabin")
 test_cleaner.fill(column="Age", mean=True)
 test_cleaner.encode_and_scale()
 
-preds = [classifier.predict(test_cleaner.df) for classifier in classifiers]
+preds = [cls.predict(test_cleaner.df) for cls in classifiers]
 
 save_preds_tocsv(X_test["PassengerId"], preds)

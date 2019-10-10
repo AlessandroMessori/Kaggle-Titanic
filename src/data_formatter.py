@@ -6,7 +6,7 @@ def weight_preds(preds):
     new_preds = list()
     for i in range(len(preds[0])):
         weighted = sum([pred[i] for pred in preds])
-        new_preds.append(1 if (weighted > 3) else 0)
+        new_preds.append(1 if (weighted > 4) else 0)
 
     return new_preds
 

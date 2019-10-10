@@ -1,3 +1,4 @@
+import random
 import numpy as np
 import pandas as pd
 from sklearn.preprocessing import StandardScaler
@@ -14,10 +15,11 @@ class DataCleaner:
     def fill(self, column, mean=False):
         if mean:
             age_mean = np.mean(self.df[column])
+            std = np.std(self.df[column])
 
             for i, col in enumerate(self.df[column]):
                 if np.isnan(col):
-                    self.df.at[i, column] = age_mean
+                    self.df.at[i, column] = age_mean + random.randrange(int(-1 * std), int(std))
         else:
             for i, col in enumerate(pd.isnull(self.df[column])):
                 if col:
