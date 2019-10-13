@@ -13,7 +13,7 @@ class NetClassifier:
 
     def build(self):
         # First Hidden Layer
-        self.classifier.add(Dense(16, activation='relu', kernel_initializer='random_normal', input_dim=11))
+        self.classifier.add(Dense(16, activation='relu', kernel_initializer='random_normal', input_dim=12))
         # Second  Hidden Layer
         self.classifier.add(Dropout(0.5))
         self.classifier.add(Dense(32, activation='relu', kernel_initializer='random_normal'))

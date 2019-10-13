@@ -26,6 +26,9 @@ classifiers = [
 X_train = pd.read_csv("data/train.csv")
 X_test = pd.read_csv("data/test.csv")
 
+X_train['famCount'] = X_train['SibSp'] + X_train['Parch']
+X_test['famCount'] = X_test['SibSp'] + X_test['Parch']
+
 Y_train = X_train.iloc[:, 1]
 X_train = X_train.drop(columns='Survived')
 
